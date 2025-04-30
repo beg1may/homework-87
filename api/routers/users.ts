@@ -24,4 +24,34 @@ usersRouter.post('/', async (req, res, next) => {
     }
 });
 
+usersRouter.post('/session', async (req, res, next) => {
+    try {
+        if(!req.body.username || !req.body.password) {
+            res.status(401).send({error: 'Username and password are required'});
+            return;
+        }
+
+        const user = await User.findOne({username: req.body.username});
+
+        if(!user) {
+            res.status(401).send({error: 'Username not found.'});
+            return;
+        }
+
+        const isMath = await user.checkPassword(req.body.password);
+
+        if(!isMath) {
+            res.status(401).send({error: 'Password is incorrect'});
+            return;
+        }
+
+        user.generateToken();
+        await user.save();
+
+        res.send({message: 'Username and password is correct', user});
+    } catch (error) {
+        next(error);
+    }
+});
+
 export default usersRouter;
