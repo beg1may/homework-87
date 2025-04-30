@@ -21,4 +21,19 @@ commentsRouter.post("/", auth, async (req, res, next) => {
     }
 });
 
+commentsRouter.get("/", async (req, res, next) => {
+    try {
+        const filter: {[key: string]: string} = {};
+
+        if(req.query.post) {
+            filter['post'] = String(req.query.post);
+        }
+
+        const comment = await Comment.find(filter).populate("username", "username");
+        res.send(comment);
+    } catch (error) {
+        next(error);
+    }
+})
+
 export default commentsRouter;
