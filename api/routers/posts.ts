@@ -1,0 +1,46 @@
+import express from "express";
+import {Error} from "mongoose";
+import Post from "../models/Post";
+import auth, {RequestWithUser} from "../middleware/auth";
+import {imagesUpload} from "../middleware/multer";
+
+const postsRouter = express.Router();
+
+postsRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next) => {
+    try {
+        if (!req.body.description && !req.body.image) {
+            res.status(400).send({ error: 'Fill in either image or description' });
+            return;
+        }
+
+        const user = (req as RequestWithUser).user;
+
+        const post = new Post({
+            username: user._id,
+            title: req.body.title,
+            description: req.body.description,
+            image: req.body.image,
+        });
+
+        await post.save();
+        res.send(post);
+    } catch (error) {
+        if(error instanceof  Error.ValidationError) {
+            res.status(400).send(error);
+            return;
+        }
+
+        next(error);
+    }
+});
+
+postsRouter.get("/", async (req, res, next) => {
+    try {
+        const post = await Post.find();
+        res.send(post);
+    } catch (error) {
+        next(error);
+    }
+});
+
+export default postsRouter;
