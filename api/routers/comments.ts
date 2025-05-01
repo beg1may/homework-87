@@ -1,6 +1,7 @@
 import express from "express";
 import Comment from "../models/Comments";
 import auth, {RequestWithUser} from "../middleware/auth";
+import {Error} from "mongoose";
 
 const commentsRouter = express.Router();
 
@@ -17,6 +18,11 @@ commentsRouter.post("/", auth, async (req, res, next) => {
         await comments.save();
         res.send(comments);
     } catch (error) {
+        if(error instanceof  Error.ValidationError) {
+            res.status(400).send(error);
+            return;
+        }
+
         next(error);
     }
 });
