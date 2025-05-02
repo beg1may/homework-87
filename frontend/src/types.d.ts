@@ -41,3 +41,9 @@ export interface Post {
     image: string | null;
     datetime: string;
 }
+
+export interface PostMutation {
+    title: string;
+    description: string;
+    image: File | null;
+}

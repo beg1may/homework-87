@@ -39,7 +39,7 @@ const run = async () => {
             username: userAlina._id,
             title: 'Лучшие места Кыргызстана для путешествий',
             description: 'Топ-5 мест, которые стоит посетить этим летом — от озера Сары-Челек до пика Ленина.',
-            image: 'https://example.com/images/kyrgyzstan-travel.jpg',
+            image: 'fixtures/postPlace.jpeg',
             datetime: new Date().toISOString()
         },
         {
