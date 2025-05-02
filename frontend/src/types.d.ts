@@ -43,6 +43,7 @@ export interface Post {
 }
 
 export interface PostMutation {
+    _id: string;
     title: string;
     description: string;
     image: File | null;
@@ -56,4 +57,9 @@ export interface IComment {
     }
     post: string;
     description: string;
+}
+
+export interface CommentMutation{
+    description: string;
+    post: string;
 }
