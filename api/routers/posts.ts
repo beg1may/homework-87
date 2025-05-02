@@ -43,4 +43,20 @@ postsRouter.get("/", async (req, res, next) => {
     }
 });
 
+postsRouter.get("/:id", async (req, res, next) => {
+    try {
+        const _id  = req.params.id;
+        const post = await Post.findById(_id).populate('username', 'username');
+
+        if(!post) {
+            res.status(404).send({message: 'Post not found'});
+            return;
+        }
+
+        res.send(post);
+    } catch (error) {
+        next(error);
+    }
+});
+
 export default postsRouter;
