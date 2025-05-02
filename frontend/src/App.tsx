@@ -8,8 +8,12 @@ import Typography from "@mui/material/Typography";
 import Post from "./features/posts/Post.tsx";
 import NewPost from "./features/posts/NewPost.tsx";
 import FullPost from "./features/posts/FullPost.tsx";
+import ProtectedRoute from "./components/UI/ProtectedRoute/ProtectedRoute.tsx";
+import {useAppSelector} from "./app/hooks.ts";
+import {selectUser} from "./features/users/usersSlice.ts";
 
 function App() {
+    const user = useAppSelector(selectUser);
 
   return (
       <>
@@ -25,7 +29,9 @@ function App() {
                       <Route path="/login" element={<Login />}/>
                       <Route path="/" element={<Post />}/>
                       <Route path="/posts" element={<Post />}/>
-                      <Route path="/posts/new" element={<NewPost />}/>
+                      <Route path="/posts/new" element={
+                          <ProtectedRoute isAllowed={Boolean(user)}><NewPost /></ProtectedRoute>
+                      }/>
                       <Route path="/posts/:id" element={<FullPost />}/>
                       <Route path="*" element={<Typography variant="h4">Not found page</Typography>}/>
                   </Routes>

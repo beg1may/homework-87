@@ -11,7 +11,7 @@ export const fetchAllPosts = createAsyncThunk<Post[], void>(
     }
 );
 
-export const fetchPostById = createAsyncThunk<PostMutation, string>(
+export const fetchPostById = createAsyncThunk<Post, string>(
     'posts/fetchPostById',
     async (post_id) => {
         const response = await axiosApi.get(`/posts/${post_id}`);
@@ -20,9 +20,10 @@ export const fetchPostById = createAsyncThunk<PostMutation, string>(
 )
 
 
-export const createPost = createAsyncThunk<void, { postToAdd: PostMutation, token : string }, { state: RootState }>(
+export const createPost = createAsyncThunk<void, PostMutation, { state: RootState }>(
     'posts/createPost',
-    async ({postToAdd, token}) => {
+    async (postToAdd,{getState}) => {
+        const token = getState().users.user?.token;
         const formData = new FormData();
 
         formData.append('title', postToAdd.title);

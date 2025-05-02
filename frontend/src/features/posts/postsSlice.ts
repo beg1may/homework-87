@@ -1,11 +1,11 @@
-import {Post, PostMutation} from "../../types";
+import {Post} from "../../types";
 import {RootState} from "../../app/store.ts";
 import {createPost, fetchAllPosts, fetchPostById} from "./postsThunks.ts";
 import { createSlice } from '@reduxjs/toolkit';
 
 interface PostsState {
     items: Post[];
-    item: PostMutation | null;
+    item: Post | null;
     fetchLoading: boolean;
     createLoading: boolean;
 }
