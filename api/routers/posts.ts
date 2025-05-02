@@ -36,7 +36,7 @@ postsRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next)
 
 postsRouter.get("/", async (req, res, next) => {
     try {
-        const post = await Post.find().populate('username', 'username');
+        const post = await Post.find().populate('username', 'username').sort({datetime: -1});
         res.send(post);
     } catch (error) {
         next(error);
