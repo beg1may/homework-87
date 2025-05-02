@@ -47,3 +47,13 @@ export interface PostMutation {
     description: string;
     image: File | null;
 }
+
+export interface IComment {
+    _id: string;
+    username: {
+        _id: string;
+        username: string;
+    }
+    post: string;
+    description: string;
+}

@@ -7,6 +7,7 @@ import Login from "./features/users/Login.tsx";
 import Typography from "@mui/material/Typography";
 import Post from "./features/posts/Post.tsx";
 import NewPost from "./features/posts/NewPost.tsx";
+import FullPost from "./features/posts/FullPost.tsx";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
                       <Route path="/" element={<Post />}/>
                       <Route path="/posts" element={<Post />}/>
                       <Route path="/posts/new" element={<NewPost />}/>
+                      <Route path="/posts/:id" element={<FullPost />}/>
                       <Route path="*" element={<Typography variant="h4">Not found page</Typography>}/>
                   </Routes>
               </Container>
