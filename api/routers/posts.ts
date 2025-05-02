@@ -19,7 +19,7 @@ postsRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next)
             username: user._id,
             title: req.body.title,
             description: req.body.description,
-            image: req.body.image,
+            image: req.file ? 'images/' + req.file.filename : null,
         });
 
         await post.save();

@@ -11,7 +11,6 @@ import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
 import {selectRegisterError, selectRegisterLoading} from "./usersSlice.ts";
 import {register} from "./usersThunks.ts";
 import {RegisterMutation} from "../../types";
-import LockOpenIcon from "@mui/icons-material/LockOpen";
 
 
 const Register = () => {

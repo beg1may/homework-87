@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Register from "./features/users/Register.tsx";
 import Login from "./features/users/Login.tsx";
 import Typography from "@mui/material/Typography";
+import Post from "./features/posts/Post.tsx";
 
 function App() {
 
@@ -20,6 +21,8 @@ function App() {
                   <Routes>
                       <Route path="/register" element={<Register />}/>
                       <Route path="/login" element={<Login />}/>
+                      <Route path="/" element={<Post />}/>
+                      <Route path="/posts" element={<Post />}/>
                       <Route path="*" element={<Typography variant="h4">Not found page</Typography>}/>
                   </Routes>
               </Container>
