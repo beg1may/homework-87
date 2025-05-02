@@ -1,6 +1,8 @@
 import express from "express";
-import {Error} from "mongoose";
+import {Error, HydratedDocument} from "mongoose";
 import User from "../models/User";
+import auth, {RequestWithUser} from "../middleware/auth";
+import {UserFields} from "../types";
 
 const usersRouter = express.Router();
 
@@ -51,6 +53,28 @@ usersRouter.post('/session', async (req, res, next) => {
         res.send({message: 'Username and password is correct', user});
     } catch (error) {
         next(error);
+    }
+});
+
+usersRouter.delete('/sessions', async (req, res, next) => {
+    const token = req.get('Authorization');
+
+    if(!token){
+        res.send({message: 'Success logout'});
+        return;
+    }
+
+    try {
+        const user = await User.findOne({token});
+
+        if(user) {
+            user.generateToken();
+            await user.save();
+        }
+
+        res.send({message: 'Success logout'});
+    } catch (e) {
+        next(e);
     }
 });
 

@@ -1,5 +1,4 @@
 import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
-import {selectUser} from "../users/usersSlice.ts";
 import {CommentMutation} from "../../types";
 import {createNewComment} from "./commentsThunks.ts";
 import {toast} from "react-toastify";
@@ -10,20 +9,17 @@ import {selectOnePost} from "../posts/postsSlice.ts";
 
 const CommentNew = () => {
     const dispatch = useAppDispatch();
-    const user = useAppSelector(selectUser);
     const post = useAppSelector(selectOnePost);
-
 
     const onCreateNewPost = async (comment: CommentMutation) => {
         try {
             await dispatch(createNewComment({
                 description: comment.description,
-                token: user?.token || '' ,
                 post: comment.post || ''
             }));
-            toast.success("Create new post!");
+            toast.success("Create new comment!");
         } catch (e) {
-            toast.error("Post was not successfully created");
+            toast.error("Comment was not successfully created");
             console.error(e);
         }
     }
