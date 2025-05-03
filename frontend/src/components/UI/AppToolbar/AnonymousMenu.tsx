@@ -1,20 +1,38 @@
-import {Button, styled} from "@mui/material";
-import {NavLink} from "react-router-dom";
-
-const StyledButton  = styled(Button)({
-    color: "#fff",
-    fontWeight: 500,
-    textTransform: "none",
-    '&:hover': {
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    },
-});
+import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const AnonymousMenu = () => {
     return (
         <>
-            <StyledButton  component={NavLink} to='/register'>Sign Up</StyledButton >
-            <StyledButton  component={NavLink} to='/login'>Sign In</StyledButton >
+            <Button
+                to="/register"
+                component={Link}
+                sx={{
+                    color: "#fff",
+                    fontWeight: 500,
+                    textTransform: "none",
+                    '&:hover': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    },
+                }}
+            >
+                Sign Up
+            </Button>
+
+            <Button
+                to="/login"
+                component={Link}
+                sx={{
+                    color: "#fff",
+                    fontWeight: 500,
+                    textTransform: "none",
+                    '&:hover': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    },
+                }}
+            >
+                Sign In
+            </Button>
         </>
     );
 };
